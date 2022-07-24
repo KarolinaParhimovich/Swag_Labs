@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.factorypages.SwagLabsFactoryPage;
 
 import static constants.SWAG_LABS_URLS.swagLabs;
 
@@ -15,13 +16,13 @@ public class SwagLabsTest extends BaseTest {
 
     @Test
     public void loginTest() {
-        driver.get(swagLabs);
-        driver.findElement(By.id("user-name")).sendKeys("standard_user");
-        driver.findElement(By.id("password")).sendKeys("secret_sauce");
-        driver.findElement(By.name("login-button")).click();
-        driver.findElement(By.xpath("//button[@name='add-to-cart-sauce-labs-backpack']")).click();
-        driver.findElement(By.className("shopping_cart_link")).click();
-        driver.findElement(By.id("remove-sauce-labs-backpack"));
+        SwagLabsFactoryPage swagLabsFactoryPage=new SwagLabsFactoryPage(driver);
+        swagLabsFactoryPage.openSwagLabs();
+        swagLabsFactoryPage.enterUserName("standard_user");
+        swagLabsFactoryPage.enterPassword("secret_sauce");
+        swagLabsFactoryPage.pressLogin();
+        swagLabsFactoryPage.addToCart();
+        swagLabsFactoryPage.shoppingCartPress();
         String actualText=driver.findElement(By.className("inventory_item_price")).getText();
         Assert.assertEquals(actualText, "$29.99");
 
