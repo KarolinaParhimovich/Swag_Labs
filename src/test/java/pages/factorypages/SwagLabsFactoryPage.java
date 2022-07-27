@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.nio.charset.StandardCharsets;
+
 
 public class SwagLabsFactoryPage extends BaseFactoryPage {
     @FindBy(id = "user-name")
@@ -17,6 +19,8 @@ public class SwagLabsFactoryPage extends BaseFactoryPage {
     private WebElement addToCartButton;
     @FindBy(className = "shopping_cart_link")
     private WebElement shoppingCartLink;
+    @FindBy(className = "inventory_item_price")
+    private WebElement itemPrice;
 
     public SwagLabsFactoryPage(WebDriver driver) {
         super(driver);
@@ -42,6 +46,10 @@ public class SwagLabsFactoryPage extends BaseFactoryPage {
     }
     public void shoppingCartPress(){
         shoppingCartLink.click();
+    }
+    public String findActualPrice(){
+        return itemPrice.getText();
+
     }
 }
 

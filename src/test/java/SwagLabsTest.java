@@ -23,7 +23,7 @@ public class SwagLabsTest extends BaseTest {
         swagLabsFactoryPage.pressLogin();
         swagLabsFactoryPage.addToCart();
         swagLabsFactoryPage.shoppingCartPress();
-        String actualText=driver.findElement(By.className("inventory_item_price")).getText();
+        String actualText=swagLabsFactoryPage.findActualPrice();
         Assert.assertEquals(actualText, "$29.99");
 
     }
