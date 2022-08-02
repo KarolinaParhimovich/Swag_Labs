@@ -25,6 +25,15 @@ public class SwagLabsTest extends BaseTest {
         swagLabsFactoryPage.shoppingCartPress();
         String actualText=swagLabsFactoryPage.findActualPrice();
         Assert.assertEquals(actualText, "$29.99");
-
+    }
+    @Test
+    public void linkedinTest(){
+        SwagLabsFactoryPage swagLabsFactoryPage=new SwagLabsFactoryPage(driver);
+        swagLabsFactoryPage.loginPage();
+        removeImplicitlyWait();
+        swagLabsFactoryPage.clickLinkedinButton();
+        setImplicitlyWait();
+        swagLabsFactoryPage.switchToNewTab();
+        Assert.assertTrue(swagLabsFactoryPage.logoLinkedin());
     }
 }
