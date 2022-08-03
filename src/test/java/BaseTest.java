@@ -1,7 +1,9 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import utils.PropertyManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -9,8 +11,16 @@ public class BaseTest {
     WebDriver driver;
     @BeforeMethod
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        driver = new ChromeDriver();
+        String os = System.getProperty("os.name");
+        String path = "PATH_TO_CHROME_WIN";
+        if (!os.contains("Windows")) {
+            path = "PATH_TO_CHROME_MAC";
+        }
+        PropertyManager propertyManager = new PropertyManager();
+        propertyManager.loadData();
+        System.setProperty("webdriver.chrome.driver", propertyManager.get(path));
+        ChromeOptions options = new ChromeOptions();
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         setImplicitlyWait();
     }
