@@ -2,7 +2,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.SwagLabsFactoryPage;
 
-public class SwagLabsTest extends BaseTest {
+public class SwagLabsTest extends BaseFactoryTest {
 
 
     @Test
