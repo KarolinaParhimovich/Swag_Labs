@@ -1,3 +1,4 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,14 +12,7 @@ public class BaseTest {
     WebDriver driver;
     @BeforeMethod
     public void setUp() {
-        String os = System.getProperty("os.name");
-        String path = "PATH_TO_CHROME_WIN";
-        if (!os.contains("Windows")) {
-            path = "PATH_TO_CHROME_MAC";
-        }
-        PropertyManager propertyManager = new PropertyManager();
-        propertyManager.loadData();
-        System.setProperty("webdriver.chrome.driver", propertyManager.get(path));
+        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
