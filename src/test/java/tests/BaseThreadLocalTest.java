@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class BaseThreadLocalTest {
     protected static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<>();
     public WebDriver driver;
+    DriverManager driverManager;
 
     @BeforeMethod
     @Parameters({"browser"})
@@ -31,13 +32,13 @@ public class BaseThreadLocalTest {
     }
 
     public WebDriver getDriver() {
-        return driver;
+        return  threadLocalDriver.get();
     }
     public void setImplicitlyWait(){
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        threadLocalDriver.get().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
     public void removeImplicitlyWait(){
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        threadLocalDriver.get().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     }
 
     @AfterMethod(alwaysRun = true)
