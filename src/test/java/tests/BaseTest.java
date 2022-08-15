@@ -1,26 +1,22 @@
-import drivermanager.DriverFactory;
-import drivermanager.DriverManager;
-import drivermanager.DriverType;
+package tests;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import utils.PropertyManager;
 
 import java.util.concurrent.TimeUnit;
 
-public class BaseFactoryTest {
-    public WebDriver driver;
-    public DriverManager driverManager;
+public class BaseTest {
+    WebDriver driver;
     @BeforeMethod
     public void setUp() {
-        DriverFactory driverFactory=new DriverFactory();
-        driverManager=driverFactory.getManager(DriverType.REMOTE);
-        driverManager.createDriver();
-        driverManager.setTimeout();
-        driverManager.startMaximize();
-        driver=driverManager.getDriver();
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        setImplicitlyWait();
     }
     public void setImplicitlyWait(){
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -28,9 +24,8 @@ public class BaseFactoryTest {
     public void removeImplicitlyWait(){
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     }
-
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
-        driverManager.quitDriver();
+        driver.quit();
     }
 }
